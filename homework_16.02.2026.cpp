@@ -18,36 +18,36 @@ template< class T > struct BiList
 
   BiList()
   {
-    fake = new BiListNode<T>();
-    fake->next = fake;
-    fake->prev = fake;
+    fake = new BiListNode<T>(); // Конструктор
+    fake->next = fake; // Копирующий конструктор
+    fake->prev = fake; // Копирующий конструктор
   }
 };
 template< class T > BiListNode< T >* add(BiListNode< T > node, const T& v)
 {
-  BiListNode< T >* newNode = new BiListNode< T >(v);
+  BiListNode< T >* newNode = new BiListNode< T >(v); // Конструктор
 
-  newNode->prev = node->prev;
-  newNode->next = node;
+  newNode->prev = node->prev; // Копирующий конструктор
+  newNode->next = node; // Копирующий конструктор
 
-  node->prev->next = newNode;
-  node->prev = newNode;
+  node->prev->next = newNode; // Копирующий конструктор
+  node->prev = newNode; // Копирующий конструктор
 
   return newNode;
 }
 template< class T > BiList< T > insert(BiListNode< T > node, const T& v)
 {
-  BiListNode< T >* newNode = new BiListNode< T >(v);
+  BiListNode< T >* newNode = new BiListNode< T >(v); // Конструктор
 
-  newNode->next = node->next;
-  newNode->prev = node;
+  newNode->next = node->next; // Копирующий конструктор
+  newNode->prev = node; // Копирующий конструктор
 
-  node->next->prev = newNode;
-  node->next = newNode;
+  node->next->prev = newNode; // Копирующий конструктор
+  node->next = newNode; // Копирующий конструктор
 
   if (newNode->next == node)
   {
-    node->prev = newNode;
+    node->prev = newNode; // Копирующий конструктор
   }
 
   return newNode;
@@ -55,23 +55,23 @@ template< class T > BiList< T > insert(BiListNode< T > node, const T& v)
 
 template< class T > BiListNode< T >* cut(BiListNode< T >* node)
 {
-  BiListNode< T > newHead = node->next;
+  BiListNode< T > newHead = node->next; // Копирующий конструктор
 
-  newHead->prev = node->prev;
-  node->prev->next = newHead;
+  newHead->prev = node->prev; // Копирующий конструктор
+  node->prev->next = newHead; // Копирующий конструктор
 
-  delete node;
+  delete node; // Деструктор
 
   return newHead;
 }
 template< class T > BiListNode< T >* erase(BiListNode< T >* node)
 {
-  BiListNode< T > newTail = node->prev;
+  BiListNode< T > newTail = node->prev; // Копирующий конструктор
 
-  newTail->next = node->next;
-  node->next->prev = newTail;
+  newTail->next = node->next; // Копирующий конструктор
+  node->next->prev = newTail; // Копирующий конструктор
 
-  delete node;
+  delete node; // Деструктор
 
   return newTail;
 }
@@ -79,17 +79,17 @@ template< class T > void clear(BiList< T >* pseudoknot)
 {
   while(pseudoknot->fake->next != pseudoknot->fake)
   {
-    BiListNode< T > tmp = pseudoknot->fake->next;
-    pseudoknot->fake->next = pseudoknot->fake->next->next;
-    delete t;
+    BiListNode< T > tmp = pseudoknot->fake->next; // Копирующий конструктор
+    pseudoknot->fake->next = pseudoknot->fake->next->next; // Копирующий конструктор
+    delete t; // Деструктор
   }
 }
 template< class T, class F > F traverse(F f, BiList< T > pseudoknot)
 {
-  BiListNode< T > node = pseudoknot->fake->next;
+  BiListNode< T > node = pseudoknot->fake->next; // Копирующий конструктор
   for(; node != pseudoknot->fake; node = node->next)
   {
-    f(node->val)
+    f(node->val) // Оператор присваивания
   }
   return f;
 }
