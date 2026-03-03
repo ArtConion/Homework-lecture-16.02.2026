@@ -12,6 +12,7 @@ template< class T > struct BiListNode
     prev(p)
   {}
 };
+
 template< class T > struct BiList
 {
   BiListNode< T >* fake;
@@ -23,6 +24,7 @@ template< class T > struct BiList
     fake->prev = fake; // Копирующий конструктор
   }
 };
+
 template< class T > BiListNode< T >* add(BiListNode< T > node, const T& v)
 {
   BiListNode< T >* newNode = new BiListNode< T >(v); // Конструктор
@@ -35,6 +37,7 @@ template< class T > BiListNode< T >* add(BiListNode< T > node, const T& v)
 
   return newNode;
 }
+
 template< class T > BiList< T > insert(BiListNode< T > node, const T& v)
 {
   BiListNode< T >* newNode = new BiListNode< T >(v); // Конструктор
@@ -64,6 +67,7 @@ template< class T > BiListNode< T >* cut(BiListNode< T >* node)
 
   return newHead;
 }
+
 template< class T > BiListNode< T >* erase(BiListNode< T >* node)
 {
   BiListNode< T > newTail = node->prev; // Копирующий конструктор
@@ -75,6 +79,7 @@ template< class T > BiListNode< T >* erase(BiListNode< T >* node)
 
   return newTail;
 }
+
 template< class T > void clear(BiList< T >* pseudoknot)
 {
   while(pseudoknot->fake->next != pseudoknot->fake)
@@ -84,6 +89,7 @@ template< class T > void clear(BiList< T >* pseudoknot)
     delete t; // Деструктор
   }
 }
+
 template< class T, class F > F traverse(F f, BiList< T > pseudoknot)
 {
   BiListNode< T > node = pseudoknot->fake->next; // Копирующий конструктор
@@ -92,4 +98,35 @@ template< class T, class F > F traverse(F f, BiList< T > pseudoknot)
     f(node->val) // Оператор присваивания
   }
   return f;
+}
+
+int main()
+{
+  int arr[] = {1, 2, 3, 4, 5};
+  size_t size = 5;
+
+  BiList< int >* pseudoknot; // Конструктор
+  BiListNode< int >* node; // Конструктор
+
+  pseudoknot->fake->next = node; // Копирующий конструктор
+  pseudoknot->fake->prev = node; // Копирующий конструктор
+
+  node->val = arr[0]; // Оператор присваивания
+  node->next = pseudoknot->fake; // Копирующий конструктор
+  node->prev = pseudoknot->fake; // Копирующий конструктор
+
+  for (size_t i = 1; i < size; ++i)
+  {
+    BiListNode< int >* newNode; // Конструктор
+
+    newNode->val = arr[i]; // Оператор присваивания
+    newNode->prev = node; // Копирующий конструктор
+    newNode->next = pseudoknot->fake; // Копирующий конструктор
+
+    node->next = newNode; // Копирующий конструктор
+
+    node = newNode; // Копирующий конструктор
+  }
+  clear(pseudoknot); // Деструктор
+  return 0;
 }
