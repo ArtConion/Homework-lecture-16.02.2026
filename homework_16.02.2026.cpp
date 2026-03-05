@@ -102,11 +102,6 @@ template< class T, class F > F traverse(F f, BiList< T >* pseudoknot)
 
 template< class T > BiList< T >* arrayToList(T* array, size_t size)
 {
-  if (size == 0)
-  {
-    return nullptr;
-  }
-
   BiList< T >* pseudoknot = new BiList< T >(); // Конструктор
   BiListNode< T >* node = pseudoknot->fake; // Оператор копирования
 
@@ -125,10 +120,9 @@ int main()
   BiList< int >* pseudoknot = arrayToList(arr, size);
   BiListNode< int >* node = pseudoknot->fake->next;
 
-  while(node != pseudoknot->fake)
+  for(; node != pseudoknot->fake; node = node->next)
   {
     std::cout << node->val << ' ';
-    node = node->next;
   }
 
   clear(pseudoknot); // Деструктор
