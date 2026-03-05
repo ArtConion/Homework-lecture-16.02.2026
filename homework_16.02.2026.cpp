@@ -108,19 +108,13 @@ template< class T > BiList< T >* arrayToList(T* array, size_t size)
   }
 
   BiList< T >* pseudoknot = new BiList< T >(); // Конструктор
-  BiListNode< T >* node = new BiListNode< T >; // Конструктор
+  BiListNode< T >* node = pseudoknot->fake; // Оператор копирования
 
-  pseudoknot->fake->next = node; // Копирующий конструктор
-  pseudoknot->fake->prev = node; // Копирующий конструктор
-
-  node->val = array[0]; // Оператор присваивания
-  node->next = pseudoknot->fake; // Копирующий конструктор
-  node->prev = pseudoknot->fake; // Копирующий конструктор
-
-  for (size_t i = 1; i < size; ++i)
+  for (size_t i = 0; i < size; ++i)
   {
     node = insert(node, array[i]);
   }
+
   return pseudoknot;
 }
 int main()
@@ -129,7 +123,6 @@ int main()
   size_t size = 5;
 
   BiList< int >* pseudoknot = arrayToList(arr, size);
-
   BiListNode< int >* node = pseudoknot->fake->next;
 
   while(node != pseudoknot->fake)
