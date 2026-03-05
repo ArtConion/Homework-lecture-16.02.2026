@@ -82,7 +82,7 @@ template< class T > BiListNode< T >* erase(BiListNode< T >* node)
 
 template< class T > void clear(BiList< T >* pseudoknot)
 {
-  while(pseudoknot->fake->next != pseudoknot->fake)
+  while (pseudoknot->fake->next != pseudoknot->fake)
   {
     BiListNode< T >* tmp = pseudoknot->fake->next; // Копирующий конструктор
     pseudoknot->fake->next = pseudoknot->fake->next->next; // Копирующий конструктор
@@ -93,7 +93,7 @@ template< class T > void clear(BiList< T >* pseudoknot)
 template< class T, class F > F traverse(F f, BiList< T >* pseudoknot)
 {
   BiListNode< T > node = pseudoknot->fake->next; // Копирующий конструктор
-  for(; node != pseudoknot->fake; node = node->next)
+  for (; node != pseudoknot->fake; node = node->next)
   {
     f(node->val); // Оператор присваивания
   }
@@ -120,7 +120,7 @@ int main()
   BiList< int >* pseudoknot = arrayToList(arr, size);
   BiListNode< int >* node = pseudoknot->fake->next;
 
-  for(; node != pseudoknot->fake; node = node->next)
+  for (; node != pseudoknot->fake; node = node->next)
   {
     std::cout << node->val << ' ';
   }
